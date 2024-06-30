@@ -22,6 +22,7 @@ body {
 
 /* Style général du logo */
 .logo {
+    background-image: url('images/logo.png');
     display: flex;
     align-items: center;
     padding: 10px;
@@ -32,3 +33,5 @@ body {
     width: 100px; /* Ajustez la taille selon vos besoins */
     height: auto;
 }
+
+
