@@ -1,25 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Koh-YangHua Application</title>
+    <title>Koh-YangHua</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
     <header>
         <nav>
             <div class="logo">
-                <img src=""images/logo.png"" alt="Logo de Koh-YangHua">
+                <img src="images/logo.png" alt="Logo de Koh-YangHua">
             </div>
             <!-- Autres éléments de navigation -->
         </nav>
     </header>
-    
-    <!-- Contenu principal de votre page -->
-    
-    <footer>
-        <!-- Pied de page avec éventuellement une copie du logo -->
-    </footer>
+
+<body>
+    <div class="container">
+        <h1>Koh-YangHua - Connexion</h1>
+        <form id="securityQuestionsForm">
+            <label for="nameSelect">Choisissez votre prénom :</label>
+            <select id="nameSelect">
+                <option value="Alice">Alice</option>
+                <option value="Bob">Bob</option>
+                <option value="Charlie">Charlie</option>
+            </select>
+
+            <div id="securityQuestions">
+                <!-- Questions seront ajoutées dynamiquement par JavaScript -->
+            </div>
+
+            <button type="button" onclick="checkAnswers()">Connexion</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
+   

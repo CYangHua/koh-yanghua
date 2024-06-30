@@ -1,28 +1,66 @@
-/* Définitions générales */
+/* Style de base */
 body {
     font-family: Arial, sans-serif;
+    background-color: #f9c160;
+    color: #252331;
     margin: 0;
     padding: 0;
+    line-height: 1.6;
 }
 
-/* Styles pour les téléphones mobiles */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label, textarea {
+    display: block;
+    margin-bottom: 10px;
+}
+
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #252331;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45404d;
+}
+
+/* Responsive */
 @media only screen and (max-width: 600px) {
-    /* Ajoutez vos styles spécifiques pour les téléphones ici */
-    /* Par exemple : ajustement de la taille de police, du padding, etc. */
-    body {
-        font-size: 14px;
+    .container {
+        max-width: 100%;
+        padding: 10px;
     }
 }
 
-/* Styles pour les tablettes et écrans plus grands */
-@media only screen and (min-width: 601px) {
-    /* Ajoutez vos styles spécifiques pour les tablettes et écrans plus grands ici */
-    /* Par exemple : disposition en colonnes, taille des éléments, etc. */
-}
 
 /* Style général du logo */
 .logo {
-    background-image: url('images/logo.png');
     display: flex;
     align-items: center;
     padding: 10px;
