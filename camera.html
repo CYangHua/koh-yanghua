@@ -4,16 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Scanner with Camera</title>
+<link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
         #scanner-container {
             text-align: center;
         }
@@ -22,16 +14,29 @@
             max-width: 600px;
             height: auto;
             margin-bottom: 20px;
+            display: none; /* Initialement caché */
         }
         #result {
             margin-top: 20px;
         }
     </style>
 </head>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo.png" alt="Logo de Koh-YangHua">
+            </div>
+            <!-- Autres éléments de navigation -->
+        </nav>
+    </header>
+
 <body>
+    <div class="container">
+        <h1>Scannez un QR Code</h1>
     <div id="scanner-container">
+        <button type="button" id="start-camera">Démarrer la caméra</button>
         <video id="camera-preview" autoplay playsinline></video>
-        <div id="result">Scannez un QR code...</div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
