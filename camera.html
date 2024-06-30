@@ -1,21 +1,40 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caméra - Koh-YangHua</title>
-    <script src="camera-script.js"></script>
+    <title>QR Code Scanner with Camera</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        #scanner-container {
+            text-align: center;
+        }
+        #camera-preview {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        #result {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Caméra</h1>
-    <div id="camera-feed">
-        <!-- Zone pour afficher le flux de la caméra -->
+    <div id="scanner-container">
+        <video id="camera-preview" autoplay playsinline></video>
+        <div id="result">Scannez un QR code...</div>
     </div>
 
-    <!-- Autres éléments nécessaires pour l'affichage ou la lecture des QR codes -->
-
-    <script>
-        // Code JavaScript pour gérer la caméra et les QR codes (à implémenter)
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
+    <script src="scriptcamera.js"></script>
 </body>
 </html>

@@ -178,4 +178,3 @@ function displayTeamMembers(teamMembers) {
     teamMembersDiv.innerHTML = teamMembersHTML;
     teamMembersDiv.style.display = 'block';
 }
-
