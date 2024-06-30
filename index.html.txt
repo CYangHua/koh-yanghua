@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koh-YangHua</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenue sur Koh-YangHua</h1>
+        <label for="prenom">Choisissez votre prénom :</label>
+        <select id="prenom">
+            <option value="Alice">Alice</option>
+            <option value="Bob">Bob</option>
+            <option value="Charlie">Charlie</option>
+            <!-- Ajoutez d'autres prénoms au besoin -->
+        </select>
+
+        <h2>Questions de sécurité :</h2>
+        <ol>
+            <li>
+                <p>Quelle est la capitale de la France ?</p>
+                <input type="radio" id="q1a" name="q1" value="Paris">
+                <label for="q1a">Paris</label><br>
+                <input type="radio" id="q1b" name="q1" value="Londres">
+                <label for="q1b">Londres</label><br>
+                <input type="radio" id="q1c" name="q1" value="Berlin">
+                <label for="q1c">Berlin</label><br>
+            </li>
+            <li>
+                <p>Quel est le plus grand océan du monde ?</p>
+                <input type="radio" id="q2a" name="q2" value="Pacifique">
+                <label for="q2a">Pacifique</label><br>
+                <input type="radio" id="q2b" name="q2" value="Atlantique">
+                <label for="q2b">Atlantique</label><br>
+                <input type="radio" id="q2c" name="q2" value="Indien">
+                <label for="q2c">Indien</label><br>
+            </li>
+            <li>
+                <p>Quel est votre plat préféré ?</p>
+                <textarea id="q3" name="q3" rows="4" cols="50"></textarea>
+            </li>
+        </ol>
+
+        <button id="connexion">Se connecter</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

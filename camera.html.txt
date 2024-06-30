@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caméra - Koh-YangHua</title>
+    <script src="camera-script.js"></script>
+</head>
+<body>
+    <h1>Caméra</h1>
+    <div id="camera-feed">
+        <!-- Zone pour afficher le flux de la caméra -->
+    </div>
+
+    <!-- Autres éléments nécessaires pour l'affichage ou la lecture des QR codes -->
+
+    <script>
+        // Code JavaScript pour gérer la caméra et les QR codes (à implémenter)
+    </script>
+</body>
+</html>
