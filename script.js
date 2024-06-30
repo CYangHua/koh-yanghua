@@ -108,9 +108,9 @@ function checkAnswers() {
     });
 
     if (allCorrect) {
-        var teamMembersHTML = '<h2>Membres de l\'équipe :</h2><ul>';
+        var teamMembersHTML = '<h2>Membres de ton équipe pour le Pékin Pas Trop Lent :</h2><ul>';
         userData.teamMembers.forEach(function (member) {
-            teamMembersHTML += '<li>' + member + '</li>';
+            teamMembersHTML += '<button class="team-member-button">' + member + '</button>';
         });
         teamMembersHTML += '</ul>';
 
@@ -126,9 +126,56 @@ function checkAnswers() {
         // Cacher le bouton de connexion
         var connexionButtonContainer = document.getElementById('connexionButtonContainer');
         connexionButtonContainer.style.display = 'none';
+
+	triggerConfettiAnimation();
     } else {
         alert('Certaines réponses sont incorrectes. Veuillez vérifier et essayer à nouveau.');
     }
 }
+// Fonction pour déclencher l'animation de confettis avec différentes couleurs
+function triggerConfettiAnimation() {
+    var confettiContainer = document.createElement('div');
+    confettiContainer.classList.add('confetti-container');
 
+    for (var i = 0; i < 50; i++) {
+        var confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        
+        // Choisir aléatoirement une couleur de confetti
+        var randomColor = Math.floor(Math.random() * 3);
+        if (randomColor === 0) {
+            confetti.classList.add('orange');
+        } else if (randomColor === 1) {
+            confetti.classList.add('blue');
+        } else {
+            confetti.classList.add('purple');
+        }
+
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        confettiContainer.appendChild(confetti);
+    }
+
+    document.body.appendChild(confettiContainer);
+
+    // Supprimer les confettis après l'animation
+    setTimeout(function() {
+        confettiContainer.remove()
+    }, 10000);
+}
+// Fonction pour afficher les membres de l'équipe
+function displayTeamMembers(teamMembers) {
+    var teamMembersHTML = '<h2>Membres de l\'équipe :</h2><ul>';
+
+    teamMembers.forEach(function(member) {
+        teamMembersHTML += '<li>' + member + '</li>';
+    });
+
+    teamMembersHTML += '</ul>';
+
+    // Afficher les membres de l'équipe dans la div teamMembers
+    var teamMembersDiv = document.getElementById('teamMembers');
+    teamMembersDiv.innerHTML = teamMembersHTML;
+    teamMembersDiv.style.display = 'block';
+}
 

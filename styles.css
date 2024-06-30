@@ -28,10 +28,41 @@ label {
     font-weight: bold;
     color: #252331;
 }
+/* styles.css */
+
+.question {
+    margin-bottom: 20px;
+}
+
+.question p {
+    margin-bottom: 10px;
+    color: #252331;
+}
+
+.optionButton {
+    display: block;
+    width: 100%;
+    background-color: #252331;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.optionButton:hover {
+    background-color: #1a1a20;
+}
 
 textarea {
     width: 100%;
+    max-width: 100%;
+    height: 30px; /* Ajustez la hauteur selon votre préférence */
+    resize: none;
 }
+
 
 button[type="button"] {
     background-color: #2b2437;
@@ -65,21 +96,119 @@ button.selected {
     height: auto;
 }
 
-.team-members-container {
-    margin-top: 30px;
+/* styles.css */
+
+.team-members {
+    max-width: 600px;
+    margin: 0 auto;
     padding: 20px;
-    background-color: #f9c160;
+    text-align: center;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    color: #252331;
+
 }
 
-.team-members-container ul {
-    list-style-type: none;
-    padding: 0;
+.team-member-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #252331;
+    color: #f9c160;
+    border: none;
+    border-radius: 8px;
+    cursor: default;
+    transition: transform 0.2s;
 }
 
-.team-members-container ul li {
-    margin-bottom: 10px;
+.team-member-button:hover {
+    transform: scale(1.1);
+}
+
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 1;
+    }
+}
+
+/* styles.css */
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 1;
+    }
+}
+
+.confetti {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    animation: confetti-fall 7s ease-out;
+    animation-fill-mode: forwards;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+
+.confetti.orange {
+    background-color: #f9c160;
+    clip-path: polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+    );
+}
+
+.confetti.blue {
+    background-color: #ef7743;
+    clip-path: polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+    );
+}
+
+.confetti.purple {
+    background-color: #2e2737;
+    clip-path: polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+    );
 }
