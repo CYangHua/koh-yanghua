@@ -1,12 +1,34 @@
-/* Exemple de CSS */
+/* Définitions générales */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
     margin: 0;
     padding: 0;
 }
 
-h1 {
-    color: #333;
-    text-align: center;
+/* Styles pour les téléphones mobiles */
+@media only screen and (max-width: 600px) {
+    /* Ajoutez vos styles spécifiques pour les téléphones ici */
+    /* Par exemple : ajustement de la taille de police, du padding, etc. */
+    body {
+        font-size: 14px;
+    }
+}
+
+/* Styles pour les tablettes et écrans plus grands */
+@media only screen and (min-width: 601px) {
+    /* Ajoutez vos styles spécifiques pour les tablettes et écrans plus grands ici */
+    /* Par exemple : disposition en colonnes, taille des éléments, etc. */
+}
+
+/* Style général du logo */
+.logo {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Style de l'image du logo */
+.logo img {
+    width: 100px; /* Ajustez la taille selon vos besoins */
+    height: auto;
 }
