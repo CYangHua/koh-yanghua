@@ -1,65 +1,58 @@
-/* Style de base */
+/* styles.css */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f9c160;
+    background-color: #c3b8a6;
     color: #252331;
     margin: 0;
     padding: 0;
     line-height: 1.6;
 }
-
 .container {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #fff;
+    text-align: center;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    text-align: center;
-    margin-bottom: 20px;
+    color: #2b2437;
 }
 
-label, textarea {
+label {
     display: block;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #252331;
 }
 
 textarea {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
 }
 
-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 20px;
-    background-color: #252331;
-    color: #fff;
+button[type="button"] {
+    background-color: #2b2437;
+    color: #ffffff;
     border: none;
-    border-radius: 4px;
+    padding: 10px 20px;
+    margin-top: 20px;
     cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s; /* Ajout de la transition pour une animation fluide */
 }
 
-button:hover {
-    background-color: #45404d;
+button[type="button"]:hover {
+    background-color: #2b2437;
 }
 
-/* Responsive */
-@media only screen and (max-width: 600px) {
-    .container {
-        max-width: 100%;
-        padding: 10px;
-    }
+button.selected {
+    background-color: #f9c160 !important; /* Utilisation de !important pour assurer la priorité sur le style */
+    color: #252331 !important;
 }
 
-
-/* Style général du logo */
 .logo {
     display: flex;
     align-items: center;
@@ -72,4 +65,21 @@ button:hover {
     height: auto;
 }
 
+.team-members-container {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9c160;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    color: #252331;
+}
 
+.team-members-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.team-members-container ul li {
+    margin-bottom: 10px;
+}

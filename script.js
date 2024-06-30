@@ -5,96 +5,130 @@ var usersData = {
             { question: "Quel est votre animal préféré ?", options: ["Lion", "Tigre", "Éléphant"], answer: "Tigre" },
             { question: "Quelle est votre couleur préférée ?", options: ["Rouge", "Bleu", "Vert"], answer: "Bleu" },
             { question: "Décrivez votre plat préféré :", answer: "Lasagnes" }
-        ]
+        ],
+        teamMembers: ["Bob", "Charlie"]
     },
     "Bob": {
         questions: [
             { question: "Quel est votre pays préféré ?", options: ["France", "Italie", "Espagne"], answer: "Italie" },
             { question: "Quelle est votre saison préférée ?", options: ["Été", "Automne", "Hiver"], answer: "Été" },
             { question: "Décrivez votre film préféré :", answer: "Inception" }
-        ]
+        ],
+        teamMembers: ["Alice", "Charlie"]
     },
     "Charlie": {
         questions: [
             { question: "Quel est votre sport préféré ?", options: ["Football", "Basketball", "Tennis"], answer: "Football" },
             { question: "Quel est votre dessert préféré ?", options: ["Gâteau au chocolat", "Tarte aux pommes", "Crème brûlée"], answer: "Gâteau au chocolat" },
             { question: "Décrivez votre destination de voyage préférée :", answer: "Bora Bora" }
-        ]
+        ],
+        teamMembers: ["Alice", "Bob"]
     }
 };
 
+var selectedOptions = {}; // Objet pour suivre les options sélectionnées par question
+var selectedName = ''; // Variable pour stocker le prénom sélectionné
+
 // Fonction pour charger les questions en fonction du prénom sélectionné
 function loadQuestions() {
-    var selectedName = document.getElementById('nameSelect').value;
+    selectedName = document.getElementById('nameSelect').value;
     var userData = usersData[selectedName];
 
     if (userData) {
+        // Désactiver le sélecteur de prénom et le bouton "Continuer"
+        document.getElementById('nameSelect').disabled = true;
+        document.getElementById('submitButton').disabled = true;
+        document.getElementById('submitButton').style.display = 'none'; // Cacher le bouton "Continuer"
+
         var questionsHTML = '';
         userData.questions.forEach(function (question, index) {
             if (question.options) {
                 // Question à choix multiples
+                questionsHTML += '<div class="questionContainer">';
                 questionsHTML += '<label>' + (index + 1) + '. ' + question.question + '</label>';
                 question.options.forEach(function (option) {
-                    questionsHTML += '<input type="radio" name="q' + (index + 1) + '" value="' + option + '"> ' + option + '<br>';
+                    var isSelected = selectedOptions[index] === option ? 'selected' : '';
+                    questionsHTML += '<button type="button" class="optionButton ' + isSelected + '" onclick="selectOption(this, ' + index + ', \'' + option + '\')">' + option + '</button>';
                 });
+                questionsHTML += '</div>';
             } else {
                 // Question à texte libre
+                questionsHTML += '<div class="questionContainer">';
                 questionsHTML += '<label>' + (index + 1) + '. ' + question.question + '</label>';
                 questionsHTML += '<textarea id="q' + (index + 1) + '" name="q' + (index + 1) + '" rows="4" cols="50"></textarea>';
+                questionsHTML += '</div>';
             }
         });
 
-        document.getElementById('securityQuestions').innerHTML = questionsHTML;
+        var securityQuestionsDiv = document.getElementById('securityQuestions');
+        securityQuestionsDiv.innerHTML = questionsHTML;
+        securityQuestionsDiv.style.display = 'block';
+
+        // Afficher le bouton de connexion une fois que les questions sont chargées
+        document.getElementById('connexionButtonContainer').style.display = 'block';
     }
 }
 
-// Fonction pour vérifier les réponses
+// Fonction pour sélectionner une option
+function selectOption(button, questionIndex, option) {
+    // Désélectionner toutes les autres options de la même question
+    var questionContainer = button.parentNode;
+    var optionButtons = questionContainer.querySelectorAll('.optionButton');
+    optionButtons.forEach(function (btn) {
+        btn.classList.remove('selected');
+    });
+
+    // Sélectionner l'option cliquée
+    button.classList.add('selected');
+    selectedOptions[questionIndex] = option;
+}
+
 function checkAnswers() {
     var selectedName = document.getElementById('nameSelect').value;
     var userData = usersData[selectedName];
+    var allCorrect = true;
 
-    if (!userData) {
-        alert("Veuillez sélectionner un prénom.");
-        return;
-    }
-
-    var answers = [];
     userData.questions.forEach(function (question, index) {
-        var answer;
+        var selectedOption = selectedOptions[index];
+
         if (question.options) {
             // Question à choix multiples
-            var selectedOption = document.querySelector('input[name="q' + (index + 1) + '"]:checked');
-            answer = selectedOption ? selectedOption.value : null;
+            if (selectedOption !== question.answer) {
+                allCorrect = false;
+                return;
+            }
         } else {
             // Question à texte libre
-            answer = document.getElementById('q' + (index + 1)).value.trim();
-        }
-        answers.push(answer);
-    });
-
-    // Vérification des réponses
-    var correct = true;
-    answers.forEach(function (answer, index) {
-        var correctAnswer = userData.questions[index].answer;
-        if (answer !== correctAnswer) {
-            correct = false;
+            var textareaValue = document.getElementById('q' + (index + 1)).value.trim();
+            if (textareaValue.toLowerCase() !== question.answer.toLowerCase()) {
+                allCorrect = false;
+                return;
+            }
         }
     });
 
-    if (correct) {
-        alert("Connexion réussie !");
-        // Redirection ou autres actions après connexion réussie
+    if (allCorrect) {
+        var teamMembersHTML = '<h2>Membres de l\'équipe :</h2><ul>';
+        userData.teamMembers.forEach(function (member) {
+            teamMembersHTML += '<li>' + member + '</li>';
+        });
+        teamMembersHTML += '</ul>';
+
+        // Afficher les membres de l'équipe dans la div teamMembers
+        var teamMembersDiv = document.getElementById('teamMembers');
+        teamMembersDiv.innerHTML = teamMembersHTML;
+        teamMembersDiv.style.display = 'block';
+
+        // Cacher le formulaire de questions
+        var securityQuestionsForm = document.getElementById('securityQuestionsForm');
+        securityQuestionsForm.style.display = 'none';
+
+        // Cacher le bouton de connexion
+        var connexionButtonContainer = document.getElementById('connexionButtonContainer');
+        connexionButtonContainer.style.display = 'none';
     } else {
-        alert("Réponses incorrectes. Veuillez vérifier et réessayer.");
+        alert('Certaines réponses sont incorrectes. Veuillez vérifier et essayer à nouveau.');
     }
 }
 
-// Chargement des questions initiales lors du chargement de la page
-document.addEventListener('DOMContentLoaded', function () {
-    loadQuestions();
-});
 
-// Mise à jour des questions lorsque le prénom est modifié
-document.getElementById('nameSelect').addEventListener('change', function () {
-    loadQuestions();
-});

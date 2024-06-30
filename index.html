@@ -6,6 +6,7 @@
     <title>Koh-YangHua</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
     <header>
         <nav>
             <div class="logo">
@@ -17,24 +18,33 @@
 
 <body>
     <div class="container">
-        <h1>Koh-YangHua - Connexion</h1>
+        <h1>Bienvenue sur Koh-YangHua</h1>
         <form id="securityQuestionsForm">
             <label for="nameSelect">Choisissez votre prénom :</label>
             <select id="nameSelect">
+                <option value="">Sélectionnez un prénom</option>
                 <option value="Alice">Alice</option>
                 <option value="Bob">Bob</option>
                 <option value="Charlie">Charlie</option>
             </select>
 
-            <div id="securityQuestions">
+            <div id="securityQuestions" style="display: none;">
                 <!-- Questions seront ajoutées dynamiquement par JavaScript -->
             </div>
 
-            <button type="button" onclick="checkAnswers()">Connexion</button>
+            <button type="button" id="submitButton" onclick="loadQuestions()">Continuer</button>
+
+<div id="connexionButtonContainer" style="display: none;">
+    <button type="button" id="connexionButton" onclick="checkAnswers()">Connexion</button>
+</div>
+
         </form>
+    </div>
+
+    <div id="teamMembers" style="display: none;">
+        <!-- Liste des membres de l'équipe affichée après la connexion -->
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-   
