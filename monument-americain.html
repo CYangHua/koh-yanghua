@@ -70,6 +70,46 @@
     </div>
 
     <script>
+// Adapter les événements pour le tactile
+imgElement.addEventListener('touchstart', event => {
+    draggedItem = imgElement;
+    setTimeout(() => imgElement.classList.add('hidden'), 0);
+});
+
+imgElement.addEventListener('touchend', () => {
+    setTimeout(() => draggedItem.classList.remove('hidden'), 0);
+    draggedItem = null;
+});
+
+document.querySelectorAll('.dropzone').forEach(zone => {
+    zone.addEventListener('touchmove', event => {
+        event.preventDefault(); // Empêcher le comportement par défaut
+        // Ajouter ici la logique pour suivre le mouvement du doigt si nécessaire
+    });
+
+    zone.addEventListener('touchend', event => {
+        event.preventDefault();
+        if (draggedItem) {
+            const clone = draggedItem.cloneNode(true);
+            clone.classList.remove('hidden');
+            clone.addEventListener('touchstart', event => {
+                draggedItem = clone;
+                setTimeout(() => clone.classList.add('hidden'), 0);
+            });
+
+            clone.addEventListener('touchend', () => {
+                setTimeout(() => draggedItem.classList.remove('hidden'), 0);
+                draggedItem = null;
+            });
+
+            event.target.innerHTML = '';
+            event.target.appendChild(clone);
+            draggedItem.classList.remove('hidden');
+            draggedItem = null;
+        }
+    });
+});
+
         const teams = {
             usa: {
                 order: ["statue_of_liberty", "mount_rushmore", "golden_gate", "white_house"],
