@@ -11,20 +11,26 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin: 0;
+            padding: 0;
         }
         #image-container, #drop-container {
             display: flex;
+            flex-wrap: wrap;
             gap: 10px;
             margin: 20px;
+            justify-content: center;
         }
         .draggable {
-            width: 150px;
-            height: 150px;
-            cursor: move;
+            width: 100%;
+            max-width: 150px;
+            height: auto;
+            cursor: pointer;
         }
         .dropzone {
             border: 2px dashed #ccc;
-            width: 150px;
+            width: 100%;
+            max-width: 150px;
             height: 150px;
             display: flex;
             align-items: center;
@@ -36,6 +42,23 @@
         #result {
             margin-top: 20px;
             font-size: 18px;
+            text-align: center;
+        }
+        #go-to-camera {
+            margin-top: 20px;
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            .draggable, .dropzone {
+                max-width: 100px;
+                height: 100px;
+            }
+        }
+        @media (max-width: 400px) {
+            .draggable, .dropzone {
+                max-width: 75px;
+                height: 75px;
+            }
         }
     </style>
 </head>
@@ -43,7 +66,7 @@
     <header>
         <nav>
             <div class="logo">
-                <img src="images/logo.png" alt="Logo de Koh-YangHua">
+                <img src="images/logo.png" alt="Logo de Koh-YangHua" style="max-width: 100px;">
             </div>
             <!-- Autres éléments de navigation -->
         </nav>
@@ -52,8 +75,14 @@
 
     <label for="team-select">Choisissez l'équipe :</label>
     <select id="team-select" onchange="changeTeam()">
-        <option value="usa">USA</option>
-        <option value="france">France</option>
+        <option value="FFK">Félix-François-Kévin</option>
+        <option value="JGI">Jean-Grégoire-Ivan</option>
+        <option value="AMQ">Anatole-Marko-Quentin</option>
+        <option value="LLC">Lola-Lucile-Charlène</option>
+        <option value="GLV">Gabriel-Lilian-Victor</option>
+        <option value="CMAA">Corentin-Martin-Agathe-Amandine</option>
+        <option value="MAMDJ">Manon-Alexis-Maxime-Denis-Joséphine</option>
+        <option value="NMSV">Nathan-Maud-Sarah-Valentin</option>
     </select>
     <div id="image-container"></div>
 
@@ -65,33 +94,87 @@
     </div>
     <button type="button" onclick="checkOrder()">Vérifier l'ordre</button>
     <p id="result" class="hidden"></p>
-    <div id="go-to-camera" style="display: none; text-align: center;">
+    <div id="go-to-camera" style="display: none;">
         <a href="camera.html"><button type="button">Scan QR Code</button></a>
     </div>
 
     <script>
         const teams = {
-            usa: {
-                order: ["statue_of_liberty", "mount_rushmore", "golden_gate", "white_house"],
+            FFK: {
+                order: ["2", "1", "4", "3"],
                 images: [
-                    {id: "statue_of_liberty", src: "Alexis.jpg", alt: "Statue de la Liberté"},
-                    {id: "mount_rushmore", src: "Nathan.jpeg", alt: "Mont Rushmore"},
-                    {id: "golden_gate", src: "Agathe.jpg", alt: "Golden Gate"},
-                    {id: "white_house", src: "Charlene.jpeg", alt: "Maison Blanche"}
+                    {id: "1", src: "Félix.jpg", alt: "1"},
+                    {id: "2", src: "Francois.jpg", alt: "2"},
+                    {id: "3", src: "Kevin.jpg", alt: "3"},
+                    {id: "4", src: "Lola.jpg", alt: "4"}
                 ]
             },
-            france: {
-                order: ["eiffel_tower", "louvre", "notre_dame", "versailles"],
+            AMQ: {
+                order: ["3", "4", "1", "2"],
                 images: [
-                    {id: "eiffel_tower", src: "eiffel_tower.jpg", alt: "Tour Eiffel"},
-                    {id: "louvre", src: "louvre.jpg", alt: "Louvre"},
-                    {id: "notre_dame", src: "notre_dame.jpg", alt: "Notre-Dame"},
-                    {id: "versailles", src: "versailles.jpg", alt: "Château de Versailles"}
+                    {id: "1", src: "Anatole.jpg", alt: "1"},
+                    {id: "2", src: "Marko.jpg", alt: "2"},
+                    {id: "3", src: "Quentin.jpg", alt: "3"},
+                    {id: "4", src: "Lucile.jpg", alt: "4"}
+                ]
+            },
+            JGI: {
+                order: ["3", "1", "4", "2"],
+                images: [
+                    {id: "1", src: "Jean.jpg", alt: "1"},
+                    {id: "2", src: "Gregoire.jpg", alt: "2"},
+                    {id: "3", src: "Ivan.jpg", alt: "3"},
+                    {id: "4", src: "Lola.jpg", alt: "4"}
+                ]
+            },
+            LLC: {
+                order: ["3", "2", "4", "1"],
+                images: [
+                    {id: "1", src: "Lola.jpg", alt: "1"},
+                    {id: "2", src: "Lucile.jpg", alt: "2"},
+                    {id: "3", src: "Charlene.jpeg", alt: "3"},
+                    {id: "4", src: "Valentin.jpg", alt: "4"}
+                ]
+            },
+            GLV: {
+                order: ["4", "2", "3", "1"],
+                images: [
+                    {id: "1", src: "Gabriel.jpg", alt: "1"},
+                    {id: "2", src: "Lilian.jpg", alt: "2"},
+                    {id: "3", src: "Victor.jpg", alt: "3"},
+                    {id: "4", src: "Francois.jpg", alt: "4"}
+                ]
+            },
+            CMAA: {
+                order: ["1", "2", "4", "3"],
+                images: [
+                    {id: "1", src: "Corentin.jpg", alt: "1"},
+                    {id: "2", src: "Martin.jpg", alt: "2"},
+                    {id: "3", src: "Amandine.jpg", alt: "3"},
+                    {id: "4", src: "Agathe.jpg", alt: "4"}
+                ]
+            },
+            MAMDJ: {
+                order: ["2", "3", "4", "1"],
+                images: [
+                    {id: "1", src: "Manon.jpg", alt: "1"},
+                    {id: "2", src: "Alexis.jpg", alt: "2"},
+                    {id: "3", src: "Maxime.jpg", alt: "3"},
+                    {id: "4", src: "Denis.jpg", alt: "4"}
+                ]
+            },
+            NMSV: {
+                order: ["3", "1", "2", "4"],
+                images: [
+                    {id: "1", src: "Maud.jpg", alt: "1"},
+                    {id: "2", src: "Sarah.jpg", alt: "2"},
+                    {id: "3", src: "Nathan.jpeg", alt: "3"},
+                    {id: "4", src: "Valentin.jpg", alt: "4"}
                 ]
             }
         };
 
-        let currentOrder = teams.usa.order;
+        let currentOrder = teams.FFK.order;
 
         function changeTeam() {
             const team = document.getElementById('team-select').value;
@@ -108,27 +191,9 @@
                 imgElement.src = image.src;
                 imgElement.alt = image.alt;
                 imgElement.className = 'draggable';
-                imgElement.draggable = true;
 
-                imgElement.addEventListener('dragstart', event => {
-                    draggedItem = imgElement;
-                    setTimeout(() => imgElement.classList.add('hidden'), 0);
-                });
-
-                imgElement.addEventListener('dragend', () => {
-                    setTimeout(() => draggedItem.classList.remove('hidden'), 0);
-                    draggedItem = null;
-                });
-
-                // Add touch events for mobile devices
-                imgElement.addEventListener('touchstart', event => {
-                    draggedItem = imgElement;
-                    setTimeout(() => imgElement.classList.add('hidden'), 0);
-                });
-
-                imgElement.addEventListener('touchend', () => {
-                    setTimeout(() => draggedItem.classList.remove('hidden'), 0);
-                    draggedItem = null;
+                imgElement.addEventListener('click', () => {
+                    selectImage(imgElement);
                 });
 
                 imageContainer.appendChild(imgElement);
@@ -137,6 +202,19 @@
             document.querySelectorAll('.dropzone').forEach(zone => {
                 zone.innerHTML = '';
             });
+        }
+
+        function selectImage(imgElement) {
+            const dropzones = document.querySelectorAll('.dropzone');
+            for (const zone of dropzones) {
+                if (zone.children.length === 0) {
+                    const clone = imgElement.cloneNode(true);
+                    zone.appendChild(clone);
+                    clone.classList.remove('hidden');
+                    imgElement.classList.add('hidden');
+                    break;
+                }
+            }
         }
 
         function checkOrder() {
@@ -161,73 +239,6 @@
             }
             document.getElementById('result').classList.remove('hidden');
         }
-
-        let draggedItem = null;
-
-        document.querySelectorAll('.dropzone').forEach(zone => {
-            zone.addEventListener('dragover', event => {
-                event.preventDefault();
-            });
-
-            zone.addEventListener('drop', event => {
-                event.preventDefault();
-                if (draggedItem) {
-                    const clone = draggedItem.cloneNode(true);
-                    clone.classList.remove('hidden');
-                    clone.addEventListener('dragstart', event => {
-                        draggedItem = clone;
-                        setTimeout(() => clone.classList.add('hidden'), 0);
-                    });
-
-                    clone.addEventListener('dragend', () => {
-                        setTimeout(() => draggedItem.classList.remove('hidden'), 0);
-                        draggedItem = null;
-                    });
-
-                    clone.addEventListener('touchstart', event => {
-                        draggedItem = clone;
-                        setTimeout(() => clone.classList.add('hidden'), 0);
-                    });
-
-                    clone.addEventListener('touchend', () => {
-                        setTimeout(() => draggedItem.classList.remove('hidden'), 0);
-                        draggedItem = null;
-                    });
-
-                    event.target.innerHTML = '';
-                    event.target.appendChild(clone);
-                    draggedItem.classList.remove('hidden');
-                    draggedItem = null;
-                }
-            });
-
-            // Add touch events for dropzones
-            zone.addEventListener('touchmove', event => {
-                event.preventDefault();
-            });
-
-            zone.addEventListener('touchend', event => {
-                event.preventDefault();
-                if (draggedItem) {
-                    const clone = draggedItem.cloneNode(true);
-                    clone.classList.remove('hidden');
-                    clone.addEventListener('touchstart', event => {
-                        draggedItem = clone;
-                        setTimeout(() => clone.classList.add('hidden'), 0);
-                    });
-
-                    clone.addEventListener('touchend', () => {
-                        setTimeout(() => draggedItem.classList.remove('hidden'), 0);
-                        draggedItem = null;
-                    });
-
-                    event.target.innerHTML = '';
-                    event.target.appendChild(clone);
-                    draggedItem.classList.remove('hidden');
-                    draggedItem = null;
-                }
-            });
-        });
 
         window.onload = () => {
             changeTeam();
