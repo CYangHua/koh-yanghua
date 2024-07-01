@@ -55,7 +55,7 @@ function loadQuestions() {
                 // Question à texte libre
                 questionsHTML += '<div class="questionContainer">';
                 questionsHTML += '<label>' + (index + 1) + '. ' + question.question + '</label>';
-                questionsHTML += '<textarea id="q' + (index + 1) + '" name="q' + (index + 1) + '" rows="4" cols="50"></textarea>';
+                questionsHTML += '<textarea id="q' + (index + 1) + '" name="q' + (index + 1) + '" rows="1" cols="50"></textarea>';
                 questionsHTML += '</div>';
             }
         });
@@ -108,16 +108,9 @@ function checkAnswers() {
     });
 
     if (allCorrect) {
-        var teamMembersHTML = '<h2>Membres de ton équipe pour le Pékin Pas Trop Lent :</h2><ul>';
-        userData.teamMembers.forEach(function (member) {
-            teamMembersHTML += '<button class="team-member-button">' + member + '</button>';
-        });
-        teamMembersHTML += '</ul>';
-
-        // Afficher les membres de l'équipe dans la div teamMembers
-        var teamMembersDiv = document.getElementById('teamMembers');
-        teamMembersDiv.innerHTML = teamMembersHTML;
-        teamMembersDiv.style.display = 'block';
+        displayTeamMembers(userData.teamMembers);
+        var goToCameraButton = document.getElementById('go-to-camera');
+        goToCameraButton.style.display = 'block';
 
         // Cacher le formulaire de questions
         var securityQuestionsForm = document.getElementById('securityQuestionsForm');
@@ -127,11 +120,26 @@ function checkAnswers() {
         var connexionButtonContainer = document.getElementById('connexionButtonContainer');
         connexionButtonContainer.style.display = 'none';
 
-	triggerConfettiAnimation();
+        triggerConfettiAnimation();
     } else {
         alert('Certaines réponses sont incorrectes. Veuillez vérifier et essayer à nouveau.');
     }
 }
+
+// Fonction pour afficher les membres de l'équipe
+function displayTeamMembers(teamMembers) {
+    var teamMembersHTML = '<h2>Membres de ton équipe pour Brest Express :</h2><div class="team-members">';
+    teamMembers.forEach(function (member) {
+        teamMembersHTML += '<button class="team-member-button">' + member + '</button>';
+    });
+    teamMembersHTML += '</div>';
+
+    // Afficher les membres de l'équipe dans la div teamMembers
+    var teamMembersDiv = document.getElementById('teamMembers');
+    teamMembersDiv.innerHTML = teamMembersHTML;
+    teamMembersDiv.style.display = 'block';
+}
+
 // Fonction pour déclencher l'animation de confettis avec différentes couleurs
 function triggerConfettiAnimation() {
     var confettiContainer = document.createElement('div');
@@ -162,19 +170,4 @@ function triggerConfettiAnimation() {
     setTimeout(function() {
         confettiContainer.remove()
     }, 10000);
-}
-// Fonction pour afficher les membres de l'équipe
-function displayTeamMembers(teamMembers) {
-    var teamMembersHTML = '<h2>Membres de l\'équipe :</h2><ul>';
-
-    teamMembers.forEach(function(member) {
-        teamMembersHTML += '<li>' + member + '</li>';
-    });
-
-    teamMembersHTML += '</ul>';
-
-    // Afficher les membres de l'équipe dans la div teamMembers
-    var teamMembersDiv = document.getElementById('teamMembers');
-    teamMembersDiv.innerHTML = teamMembersHTML;
-    teamMembersDiv.style.display = 'block';
 }

@@ -3,26 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gare de Brest</title>
+    <title>Monuments Américains</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #image-container, #drop-container {
+            display: flex;
+            gap: 10px;
+            margin: 20px;
+        }
+        .draggable {
+            width: 150px;
+            height: 150px;
+            cursor: move;
+        }
+        .dropzone {
+            border: 2px dashed #ccc;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hidden {
+            display: none;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
 </head>
+<header>
+    <nav>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo de Koh-YangHua">
+        </div>
+        <!-- Autres éléments de navigation -->
+    </nav>
+</header>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <img src="C:\Users\ericg\Documents\Koh-YangHua\images\logo.png" alt="Logo de Koh-YangHua">
-            </div>
-            <!-- Autres éléments de navigation -->
-        </nav>
-    </header>
-    
-    <main>
-        <h1>Gare de Brest</h1>
-        <p>Informations sur la gare de Brest...</p>
-    </main>
-    
-    <footer>
-        <!-- Pied de page avec éventuellement une copie du logo -->
-    </footer>
+    <h1>Classez ces photos dans l'ordre chronologique.</h1>
+
+    <label for="team-select">Choisissez l'équipe :</label>
+    <select id="team-select" onchange="changeTeam()">
+        <option value="usa">USA</option>
+        <option value="france">France</option>
+    </select>
+    <div id="image-container"></div>
+
+    <div id="drop-container">
+        <div class="dropzone" data-order="1"></div>
+        <div class="dropzone" data-order="2"></div>
+        <div class="dropzone" data-order="3"></div>
+        <div class="dropzone" data-order="4"></div>
+    </div>
+    <button type="button" onclick="checkOrder()">Vérifier l'ordre</button>
+    <p id="result" class="hidden"></p>
+    <div id="go-to-camera" style="display: none; text-align: center;">
+        <a href="camera.html"><button type="button">Scan QR Code</button></a>
+    </div>
+
+    <script>
+        const teams = {
+            usa: {
+                order: ["statue_of_liberty", "mount_rushmore", "golden_gate", "white_house"],
+                images: [
+                    {id: "statue_of_liberty", src: "1.png", alt: "Statue de la Liberté"},
+                    {id: "mount_rushmore", src: "2.png", alt: "Mont Rushmore"},
+                    {id: "golden_gate", src: "3.png", alt: "Golden Gate"},
+                    {id: "white_house", src: "4.png", alt: "Maison Blanche"}
+                ]
+            },
+            france: {
+                order: ["eiffel_tower", "louvre", "notre_dame", "versailles"],
+                images: [
+                    {id: "eiffel_tower", src: "eiffel_tower.jpg", alt: "Tour Eiffel"},
+                    {id: "louvre", src: "louvre.jpg", alt: "Louvre"},
+                    {id: "notre_dame", src: "notre_dame.jpg", alt: "Notre-Dame"},
+                    {id: "versailles", src: "versailles.jpg", alt: "Château de Versailles"}
+                ]
+            }
+        };
+
+        let currentOrder = teams.usa.order;
+
+        function changeTeam() {
+            const team = document.getElementById('team-select').value;
+            currentOrder = teams[team].order;
+            updateImages(teams[team].images);
+        }
+
+       function updateImages(images) {
+            const imageContainer = document.getElementById('image-container');
+            imageContainer.innerHTML = '';
+            images.forEach(image => {
+                const imgElement = document.createElement('img');
+                imgElement.id = image.id;
+                imgElement.src = image.src;
+                imgElement.alt = image.alt;
+                imgElement.className = 'draggable';
+                imgElement.draggable = true;
+
+                imgElement.addEventListener('dragstart', event => {
+                    draggedItem = imgElement;
+                    setTimeout(() => imgElement.classList.add('hidden'), 0);
+                });
+
+                imgElement.addEventListener('dragend', () => {
+                    setTimeout(() => draggedItem.classList.remove('hidden'), 0);
+                    draggedItem = null;
+                });
+
+                imageContainer.appendChild(imgElement);
+            });
+
+            document.querySelectorAll('.dropzone').forEach(zone => {
+                zone.innerHTML = '';
+            });
+        }
+
+
+ function checkOrder() {
+            let userOrder = [];
+            document.querySelectorAll('.dropzone').forEach(zone => {
+                if (zone.firstChild) {
+                    userOrder.push(zone.firstChild.id);
+                } else {
+                    userOrder.push(null);
+                }
+            });
+
+            if (JSON.stringify(userOrder) === JSON.stringify(currentOrder)) {
+                document.getElementById('result').textContent = "Bravo ! Vous avez trouvé le bon ordre. Je vous propose maintenant d'utiliser l'indice pour aller de monument en monument.";
+                const letters = ["C", "R", "A", "S"];
+		document.getElementById('go-to-camera').style.display = "block";
+                document.querySelectorAll('.dropzone').forEach((zone, index) => {
+                    zone.innerHTML = letters[index];
+                });
+            } else {
+                document.getElementById('result').textContent = "Désolé, l'ordre est incorrect.";
+            }
+            document.getElementById('result').classList.remove('hidden');
+        }
+
+        let draggedItem = null;
+
+        document.querySelectorAll('.dropzone').forEach(zone => {
+            zone.addEventListener('dragover', event => {
+                event.preventDefault();
+            });
+
+            zone.addEventListener('drop', event => {
+                event.preventDefault();
+                if (draggedItem) {
+                    const clone = draggedItem.cloneNode(true);
+                    clone.classList.remove('hidden');
+                    clone.addEventListener('dragstart', event => {
+                        draggedItem = clone;
+                        setTimeout(() => clone.classList.add('hidden'), 0);
+                    });
+
+                    clone.addEventListener('dragend', () => {
+                        setTimeout(() => draggedItem.classList.remove('hidden'), 0);
+                        draggedItem = null;
+                    });
+                    event.target.innerHTML = '';
+                    event.target.appendChild(clone);
+                    draggedItem.classList.remove('hidden');
+                    draggedItem = null;
+                }
+            });
+        });
+
+
+        window.onload = () => {
+            changeTeam();
+        }
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>

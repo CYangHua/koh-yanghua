@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 
-    <header>
-        <nav>
-            <div class="logo">
-                <img src="images/logo.png" alt="Logo de Koh-YangHua">
-            </div>
-            <!-- Autres éléments de navigation -->
-        </nav>
-    </header>
+<header>
+    <nav>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo de Koh-YangHua">
+        </div>
+        <!-- Autres éléments de navigation -->
+    </nav>
+</header>
 
 <body>
     <div class="container">
@@ -34,20 +34,18 @@
 
             <button type="button" id="submitButton" onclick="loadQuestions()">Continuer</button>
 
-<div id="connexionButtonContainer" style="display: none;">
-    <button type="button" id="connexionButton" onclick="checkAnswers()">Connexion</button>
-</div>
+            <div id="connexionButtonContainer" style="display: none;">
+                <button type="button" id="connexionButton" onclick="checkAnswers()">Connexion</button>
+            </div>
 
         </form>
     </div>
 
-    <div id="teamMembers" style="display: none;">
+    <div id="teamMembers" style="display: none; text-align: center;">
         <!-- Liste des membres de l'équipe affichée après la connexion -->
     </div>
-    <div id="scanner-container">
-        <video id="camera-preview" autoplay playsinline></video>
-        <div id="result">Scannez un QR code...</div>
-        <a id="go-to-camera" href="camera.html">Aller vers la page de la caméra</a>
+    <div id="go-to-camera" style="display: none; text-align: center;">
+        <a href="camera.html"><button type="button">Lancer Brest Express</button></a>
     </div>
     <!-- Section pour les confettis -->
     <div id="confettiContainer" class="confetti-container">

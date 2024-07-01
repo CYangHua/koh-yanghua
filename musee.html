@@ -3,26 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gare de Brest</title>
+    <title>Musée Maritime</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+<header>
+    <nav>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo de Koh-YangHua">
+        </div>
+        <!-- Autres éléments de navigation -->
+    </nav>
+</header>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <img src="C:\Users\ericg\Documents\Koh-YangHua\images\logo.png" alt="Logo de Koh-YangHua">
-            </div>
-            <!-- Autres éléments de navigation -->
-        </nav>
-    </header>
-    
-    <main>
-        <h1>Gare de Brest</h1>
-        <p>Informations sur la gare de Brest...</p>
-    </main>
-    
-    <footer>
-        <!-- Pied de page avec éventuellement une copie du logo -->
-    </footer>
+    <div class="container">
+    <h1>Musée Maritime</h1>
+<p><i><b>Soyez attentifs dans le musée ! Il vous faut obtenir au moins la moyenne...</b></i></p>
+<hr class="styled-hr">
+    <div class="question-container">
+        <div class="question">Le nom du château racheté en 1397 à Brest est le même que celui présent dans une autre ville française. Laquelle ?</div>
+        <input type="text" class="answer" data-correct="Nantes">
+    </div>
+<hr class="styled-hr">
+    <div class="question-container">
+        <div class="question">Quel bateau du patrimoine maritime de Brest est le plus long ?</div>
+        <input type="text" class="answer" data-correct="Recouvrance, La Recouvrance">
+    </div>
+<hr class="styled-hr">
+    <div class="question-container">
+        <div class="question">Donner un des deux slogans que l'on peut apercevoir sur le bâtiment de la préfecture maritime.</div>
+        <input type="text" class="answer" data-correct="Honneur et Patrie, Valeur et Discipline">
+    </div>
+<hr class="styled-hr">
+    <div class="question-container">
+        <div class="question">Combien de livres donneriez-vous au canon du Golymin exposé ?</div>
+        <input type="text" class="answer" data-correct="36, 36 livres">
+    </div>
+<hr class="styled-hr">
+    <div class="question-container">
+        <div class="question">Quel est le poste du seul Olivier dans l'équipage de la Boussole ?</div>
+        <input type="text" class="answer" data-correct="Aide-voilier, un aide-voilier, aide voilier, un aide voilier">
+    </div>
+<hr class="styled-hr">
+    <div class="question-container">
+        <div class="question">De combien de cm a monté le niveau de la mer à Brest entre 1711 et 2020 ?</div>
+        <input type="text" class="answer" data-correct="30, 30 cm, 30cm">
+    </div>
+<hr class="styled-hr">
+    <div class="question-container">
+        <div class="question">Par quel numéro sont identifiés les pontaniou sur la carte du musée ?</div>
+        <input type="text" class="answer" data-correct="14, numéro 14">
+    </div>
+<hr class="styled-hr">
+    <div class="question-container">
+        <div class="question">De quel couleur est le trait qui passe le plus proche de Devonport ?</div>
+        <input type="text" class="answer" data-correct="Rose, Couleur Rose, de couleur rose">
+    </div>
+<hr class="styled-hr">
+    <div class="question-container">
+        <div class="question">De quelle couleur est le bonnet des condamnés à vie ?</div>
+        <input type="text" class="answer" data-correct="rouge, de couleur rouge, couleur rouge">
+    </div>
+<hr class="styled-hr">
+    <div class="question-container">
+        <div class="question">De quel doigt de Neptune le bout est-il abîmé ?</div>
+        <input type="text" class="answer" data-correct="L'annulaire, annulaire">
+    </div>
+<hr class="styled-hr">
+    <div class="question-container">
+        <div class="question">Quel bateau a parcouru exactement 1.8 million de miles nautiques avant 2010 ?</div>
+        <input type="text" class="answer" data-correct="Le Jeanne d'Arc, Jeanne d'Arc, Bateau Jeanne d'Arc, le bateau Jeanne d'Arc">
+    </div>
+
+    <button type="button" onclick="checkAnswers()">Vérifier les réponses</button>
+    <p id="score"></p>
+    <div id="extra-text-container">
+        <p id="extra-text"></p>
+    </div>
+    <div id="go-to-camera" style="display: none; text-align: center;">
+        <a href="poeme.html"><button type="button">Continuer</button></a>
+    </div>
+    <script src="script.js"></script>
+</div>
+    <script>
+        function checkAnswers() {
+            const answers = document.querySelectorAll('.answer');
+            let score = 0;
+
+            answers.forEach(answer => {
+                const userAnswer = answer.value.trim().toLowerCase();
+                const correctAnswers = answer.getAttribute('data-correct').split(',').map(a => a.trim().toLowerCase());
+                if (correctAnswers.includes(userAnswer)) {
+                    score++;
+                }
+            });
+
+            document.getElementById('score').textContent = `Votre score est : ${score} / 11`;
+const extraText = document.getElementById('extra-text');
+           if (score >= 6) {
+		document.getElementById('go-to-camera').style.display = "block";
+                extraText.textContent = "Félicitations ! Vous êtes maintenant un expert maritime, il est temps de partir de Brest. Mais pour aller où ?";
+                document.getElementById('extra-text-container').style.display = 'flex';
+            } else {
+                extraText.textContent = "Il vous faut au moins 6 bonnes réponses...";
+                document.getElementById('extra-text-container').style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
