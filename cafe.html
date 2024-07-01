@@ -3,26 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gare de Brest</title>
+    <title>Café</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
+<header>
+    <nav>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo de Koh-YangHua">
+        </div>
+        <!-- Autres éléments de navigation -->
+    </nav>
+</header>
+
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <img src="C:\Users\ericg\Documents\Koh-YangHua\images\logo.png" alt="Logo de Koh-YangHua">
-            </div>
-            <!-- Autres éléments de navigation -->
-        </nav>
-    </header>
-    
-    <main>
-        <h1>Gare de Brest</h1>
-        <p>Informations sur la gare de Brest...</p>
-    </main>
-    
-    <footer>
-        <!-- Pied de page avec éventuellement une copie du logo -->
-    </footer>
+    <div class="container">
+        <h1>Vous y êtes presque !</h1>
+        <p>
+Mais quelle est donc notre prochaine destination ? Vous la trouverez en vertical. </p>      
+	<img src="MC.jpg" class="full-screen-image"> 
+           <div id="questionContainer">
+            <label for="userAnswer">Quelle ville obtenez-vous ?</label>
+            <textarea id="userAnswer" name="userAnswer" rows="1" cols="20"></textarea>
+        </div>
+
+        <button type="button" id="checkAnswerButton" onclick="checkAnswer()">Vérifier la réponse</button>
+
+        <div id="additionalTextContainer" style="display: none;">
+<p><br>
+	Comment aller à cette ville ? Je ne sais pas, débrouillez-vous, c'est Brest Express après tout ! Une fois arrivé là-bas, allez au restaurant Louise de Bretagne et commandez-y un Koh-YangHua pour la dernière étape de ce parcours...</p>
+<p>        </div>
+    <div id="go-to-camera" style="display: none; text-align: center;">
+        <a href="camera.html"><button type="button">Scan QR Code</button></a>
+    </div>
+    <script src="script.js"></script>
+  <!-- Section pour les confettis -->
+    <div id="confettiContainer" class="confetti-container">
+        <!-- Les confettis seront ajoutés dynamiquement par JavaScript -->
+    </div>
+  
+    </div>
+
+    <script>
+        function checkAnswer() {
+            var userAnswer = document.getElementById('userAnswer').value.trim().toLowerCase();
+            if (userAnswer === "le conquet") {
+		triggerConfettiAnimation();
+		document.getElementById('go-to-camera').style.display = "block";
+                document.getElementById('additionalTextContainer').style.display = 'block';
+            } else {
+                alert('Réponse incorrecte. Veuillez réessayer.');
+            }
+        }
+// Fonction pour déclencher l'animation de confettis avec différentes couleurs
+function triggerConfettiAnimation() {
+    var confettiContainer = document.createElement('div');
+    confettiContainer.classList.add('confetti-container');
+
+    for (var i = 0; i < 50; i++) {
+        var confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        
+        // Choisir aléatoirement une couleur de confetti
+        var randomColor = Math.floor(Math.random() * 3);
+        if (randomColor === 0) {
+            confetti.classList.add('orange');
+        } else if (randomColor === 1) {
+            confetti.classList.add('blue');
+        } else {
+            confetti.classList.add('purple');
+        }
+
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        confettiContainer.appendChild(confetti);
+    }
+
+    document.body.appendChild(confettiContainer);
+
+    // Supprimer les confettis après l'animation
+    setTimeout(function() {
+        confettiContainer.remove()
+    }, 10000);
+}
+
+    </script>
+
+    <script src="script.js"></script>
 </body>
 </html>
