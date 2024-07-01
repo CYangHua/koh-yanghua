@@ -39,15 +39,15 @@
         }
     </style>
 </head>
-<header>
-    <nav>
-        <div class="logo">
-            <img src="images/logo.png" alt="Logo de Koh-YangHua">
-        </div>
-        <!-- Autres éléments de navigation -->
-    </nav>
-</header>
 <body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo.png" alt="Logo de Koh-YangHua">
+            </div>
+            <!-- Autres éléments de navigation -->
+        </nav>
+    </header>
     <h1>Classez ces photos dans l'ordre chronologique.</h1>
 
     <label for="team-select">Choisissez l'équipe :</label>
@@ -70,54 +70,14 @@
     </div>
 
     <script>
-// Adapter les événements pour le tactile
-imgElement.addEventListener('touchstart', event => {
-    draggedItem = imgElement;
-    setTimeout(() => imgElement.classList.add('hidden'), 0);
-});
-
-imgElement.addEventListener('touchend', () => {
-    setTimeout(() => draggedItem.classList.remove('hidden'), 0);
-    draggedItem = null;
-});
-
-document.querySelectorAll('.dropzone').forEach(zone => {
-    zone.addEventListener('touchmove', event => {
-        event.preventDefault(); // Empêcher le comportement par défaut
-        // Ajouter ici la logique pour suivre le mouvement du doigt si nécessaire
-    });
-
-    zone.addEventListener('touchend', event => {
-        event.preventDefault();
-        if (draggedItem) {
-            const clone = draggedItem.cloneNode(true);
-            clone.classList.remove('hidden');
-            clone.addEventListener('touchstart', event => {
-                draggedItem = clone;
-                setTimeout(() => clone.classList.add('hidden'), 0);
-            });
-
-            clone.addEventListener('touchend', () => {
-                setTimeout(() => draggedItem.classList.remove('hidden'), 0);
-                draggedItem = null;
-            });
-
-            event.target.innerHTML = '';
-            event.target.appendChild(clone);
-            draggedItem.classList.remove('hidden');
-            draggedItem = null;
-        }
-    });
-});
-
         const teams = {
             usa: {
                 order: ["statue_of_liberty", "mount_rushmore", "golden_gate", "white_house"],
                 images: [
-                    {id: "statue_of_liberty", src: "Alexis.png", alt: "Statue de la Liberté"},
-                    {id: "mount_rushmore", src: "Nathan.png", alt: "Mont Rushmore"},
-                    {id: "golden_gate", src: "Agathe.png", alt: "Golden Gate"},
-                    {id: "white_house", src: "Charlene.png", alt: "Maison Blanche"}
+                    {id: "statue_of_liberty", src: "Alexis.jpg", alt: "Statue de la Liberté"},
+                    {id: "mount_rushmore", src: "Nathan.jpeg", alt: "Mont Rushmore"},
+                    {id: "golden_gate", src: "Agathe.jpg", alt: "Golden Gate"},
+                    {id: "white_house", src: "Charlene.jpeg", alt: "Maison Blanche"}
                 ]
             },
             france: {
@@ -139,7 +99,7 @@ document.querySelectorAll('.dropzone').forEach(zone => {
             updateImages(teams[team].images);
         }
 
-       function updateImages(images) {
+        function updateImages(images) {
             const imageContainer = document.getElementById('image-container');
             imageContainer.innerHTML = '';
             images.forEach(image => {
@@ -160,6 +120,17 @@ document.querySelectorAll('.dropzone').forEach(zone => {
                     draggedItem = null;
                 });
 
+                // Add touch events for mobile devices
+                imgElement.addEventListener('touchstart', event => {
+                    draggedItem = imgElement;
+                    setTimeout(() => imgElement.classList.add('hidden'), 0);
+                });
+
+                imgElement.addEventListener('touchend', () => {
+                    setTimeout(() => draggedItem.classList.remove('hidden'), 0);
+                    draggedItem = null;
+                });
+
                 imageContainer.appendChild(imgElement);
             });
 
@@ -168,8 +139,7 @@ document.querySelectorAll('.dropzone').forEach(zone => {
             });
         }
 
-
- function checkOrder() {
+        function checkOrder() {
             let userOrder = [];
             document.querySelectorAll('.dropzone').forEach(zone => {
                 if (zone.firstChild) {
@@ -182,7 +152,7 @@ document.querySelectorAll('.dropzone').forEach(zone => {
             if (JSON.stringify(userOrder) === JSON.stringify(currentOrder)) {
                 document.getElementById('result').textContent = "Bravo ! Vous avez trouvé le bon ordre. Je vous propose maintenant d'utiliser l'indice pour aller de monument en monument.";
                 const letters = ["C", "R", "A", "S"];
-		document.getElementById('go-to-camera').style.display = "block";
+                document.getElementById('go-to-camera').style.display = "block";
                 document.querySelectorAll('.dropzone').forEach((zone, index) => {
                     zone.innerHTML = letters[index];
                 });
@@ -213,6 +183,44 @@ document.querySelectorAll('.dropzone').forEach(zone => {
                         setTimeout(() => draggedItem.classList.remove('hidden'), 0);
                         draggedItem = null;
                     });
+
+                    clone.addEventListener('touchstart', event => {
+                        draggedItem = clone;
+                        setTimeout(() => clone.classList.add('hidden'), 0);
+                    });
+
+                    clone.addEventListener('touchend', () => {
+                        setTimeout(() => draggedItem.classList.remove('hidden'), 0);
+                        draggedItem = null;
+                    });
+
+                    event.target.innerHTML = '';
+                    event.target.appendChild(clone);
+                    draggedItem.classList.remove('hidden');
+                    draggedItem = null;
+                }
+            });
+
+            // Add touch events for dropzones
+            zone.addEventListener('touchmove', event => {
+                event.preventDefault();
+            });
+
+            zone.addEventListener('touchend', event => {
+                event.preventDefault();
+                if (draggedItem) {
+                    const clone = draggedItem.cloneNode(true);
+                    clone.classList.remove('hidden');
+                    clone.addEventListener('touchstart', event => {
+                        draggedItem = clone;
+                        setTimeout(() => clone.classList.add('hidden'), 0);
+                    });
+
+                    clone.addEventListener('touchend', () => {
+                        setTimeout(() => draggedItem.classList.remove('hidden'), 0);
+                        draggedItem = null;
+                    });
+
                     event.target.innerHTML = '';
                     event.target.appendChild(clone);
                     draggedItem.classList.remove('hidden');
@@ -221,11 +229,9 @@ document.querySelectorAll('.dropzone').forEach(zone => {
             });
         });
 
-
         window.onload = () => {
             changeTeam();
         }
     </script>
-    <script src="script.js"></script>
 </body>
 </html>
