@@ -31,7 +31,7 @@ Mais quelle est donc notre prochaine destination ? Vous la trouverez en vertical
 
         <div id="additionalTextContainer" style="display: none;">
 <p><br>
-	Comment aller à cette ville ? Je ne sais pas, débrouillez-vous, c'est Brest Express après tout ! Une fois arrivé là-bas, allez au restaurant Louise de Bretagne et commandez-y un Koh-YangHua pour la dernière étape de ce parcours...</p>
+	Comment aller à cette ville ? Je ne sais pas, débrouillez-vous, c'est Brest Express après tout ! Une fois arrivé là-bas, rejoignez la passerelle du Croae.</p>
 <p>        </div>
     <div id="go-to-camera" style="display: none; text-align: center;">
         <a href="camera.html"><button type="button">Scan QR Code</button></a>
@@ -49,7 +49,6 @@ Mais quelle est donc notre prochaine destination ? Vous la trouverez en vertical
             var userAnswer = document.getElementById('userAnswer').value.trim().toLowerCase();
             if (userAnswer === "le conquet") {
 		triggerConfettiAnimation();
-		document.getElementById('go-to-camera').style.display = "block";
                 document.getElementById('additionalTextContainer').style.display = 'block';
             } else {
                 alert('Réponse incorrecte. Veuillez réessayer.');

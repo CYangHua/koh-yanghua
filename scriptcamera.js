@@ -1,5 +1,3 @@
-// script.js
-
 document.getElementById('start-camera').addEventListener('click', function() {
     var video = document.getElementById('camera-preview');
 
@@ -17,16 +15,18 @@ document.getElementById('start-camera').addEventListener('click', function() {
                 video.style.display = 'block'; // Afficher le flux vidéo
                 document.getElementById('result').innerText = 'Scannez un QR code...';
                 console.log("Caméra démarrée avec succès !");
-                
+
                 // Initialiser QuaggaJS avec le flux vidéo
                 Quagga.init({
                     inputStream: {
                         name: "Live",
                         type: "LiveStream",
-                        target: video,
+                        target: video, // or document.querySelector('#yourElement')
                         constraints: {
                             width: { min: 640 },
-                            height: { min: 480 }
+                            height: { min: 480 },
+                            aspectRatio: { min: 1, max: 100 },
+                            facingMode: "environment" // ou "user" pour la caméra frontale
                         }
                     },
                     decoder: {
@@ -40,6 +40,13 @@ document.getElementById('start-camera').addEventListener('click', function() {
                     console.log("QuaggaJS prêt à démarrer le scan des QR codes!");
 
                     Quagga.start();
+
+                    // Ajouter un écouteur pour les résultats de scan
+                    Quagga.onDetected(function(data) {
+                        console.log("QR Code détecté : ", data);
+                        document.getElementById('result').innerText = "QR Code détecté : " + data.codeResult.code;
+                        Quagga.stop(); // Arrêter le scan après détection
+                    });
                 });
 
             })

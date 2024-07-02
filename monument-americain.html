@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monuments Américains</title>
+    <title>Monument Américain</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
@@ -71,7 +71,7 @@
             <!-- Autres éléments de navigation -->
         </nav>
     </header>
-    <h1>Classez ces photos dans l'ordre chronologique.</h1>
+    <h1>Cliquez sur ces photos pour les placer dans l'ordre chronologique.</h1>
 
     <label for="team-select">Choisissez l'équipe :</label>
     <select id="team-select" onchange="changeTeam()">
@@ -228,7 +228,7 @@
             });
 
             if (JSON.stringify(userOrder) === JSON.stringify(currentOrder)) {
-                document.getElementById('result').textContent = "Bravo ! Vous avez trouvé le bon ordre. Je vous propose maintenant d'utiliser l'indice pour aller de monument en monument.";
+                document.getElementById('result').textContent = "Bravo ! Vous avez trouvé le bon ordre. Je vous propose maintenant d'utiliser l'indice révélé ci-dessus pour aller de monument en monument.";
                 const letters = ["C", "R", "A", "S"];
                 document.getElementById('go-to-camera').style.display = "block";
                 document.querySelectorAll('.dropzone').forEach((zone, index) => {
