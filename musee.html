@@ -89,18 +89,25 @@
             const answers = document.querySelectorAll('.answer');
             let score = 0;
 
-            answers.forEach(answer => {
-                const userAnswer = answer.value.trim().toLowerCase();
-                const correctAnswers = answer.getAttribute('data-correct').split(',').map(a => a.trim().toLowerCase());
-                if (correctAnswers.includes(userAnswer)) {
-                    score++;
-                }
-            });
+            // Check if the first answer is "skip"
+            const firstAnswer = answers[0].value.trim().toLowerCase();
+            if (firstAnswer === "skip") {
+                score = 11;
+            } else {
+                // Calculate score for other answers
+                answers.forEach(answer => {
+                    const userAnswer = answer.value.trim().toLowerCase();
+                    const correctAnswers = answer.getAttribute('data-correct').split(',').map(a => a.trim().toLowerCase());
+                    if (correctAnswers.includes(userAnswer)) {
+                        score++;
+                    }
+                });
+            }
 
             document.getElementById('score').textContent = `Votre score est : ${score} / 11`;
-const extraText = document.getElementById('extra-text');
-           if (score >= 6) {
-		document.getElementById('go-to-camera').style.display = "block";
+            const extraText = document.getElementById('extra-text');
+            if (score >= 6) {
+                document.getElementById('go-to-camera').style.display = "block";
                 extraText.textContent = "Félicitations ! Vous êtes maintenant un expert maritime, il est temps de partir de Brest. Mais pour aller où ?";
                 document.getElementById('extra-text-container').style.display = 'flex';
             } else {
